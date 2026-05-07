@@ -37,6 +37,9 @@ docker-demo/
     ├── Dockerfile           # Python 執行環境建置檔
     ├── app.py               # Flask API 服務程式碼
     └── routes/              # 功能模組路由
+        ├── analyzer.py      # 字數統計模組
+        └── scraper.py       # 網頁爬蟲模組
+
 ```
 
 ## 快速啟動
