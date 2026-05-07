@@ -8,6 +8,18 @@
 - **Python Sidecar (專業 Worker)**：運行 Flask 服務，內建 `requests` 與 `BeautifulSoup`，負責執行實際的網頁抓取邏輯。
 - **內部通訊**：使用 Docker 網路 `demo-net`，n8n 可透過 `http://sidecar:5000` 直接存取 Python 服務。
 
+```mermaid
+graph LR
+    User[外部請求] -- HTTP Port:5679 --> N8N[n8n 容器<br/>指揮官]
+    
+    subgraph Docker Network [demo-net]
+        N8N -- HTTP API Port:5000 --> Sidecar[Python 容器<br/>Sidecar 專家]
+        Sidecar -- Return Result --> N8N
+    end
+    
+    N8N -- HTTP JSON Response --> User
+```
+
 ## 目錄結構
 
 ```text
