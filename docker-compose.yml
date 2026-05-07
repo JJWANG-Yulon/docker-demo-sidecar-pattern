@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    ports:
+      - "5679:5678"
+    networks:
+      - demo-net
+    environment:
+      - N8N_HOST=n8n
+      - N8N_PORT=5678
+
+  sidecar:
+    build: ./sidecar
+    networks:
+      - demo-net
+    ports:
+      - "5000:5000"
+    expose:
+      - "5000"
+
+networks:
+  demo-net:
+    driver: bridge
