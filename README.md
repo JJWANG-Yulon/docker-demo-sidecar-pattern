@@ -44,12 +44,23 @@ curl "http://localhost:5679/webhook/scrape-trigger?url=https://dashboard.ngrok.c
   - `/api/analyzer/analyze`: 執行文字數據統計任務。
 - 新增 `analyzer_workflow.json` 以支援字數統計工作流的同步呼叫。
 
-### 如何新增功能模組
-若要新增更多 API 功能，請遵循以下步驟：
-1. 在 `sidecar/routes/` 目錄下建立新的路由檔案 (例如 `new_module.py`)。
-2. 使用 Flask `Blueprint` 定義邏輯。
-3. 在 `sidecar/app.py` 中 `register_blueprint` 註冊該模組，並指定新的 `url_prefix`。
-4. 重新啟動容器服務 (`docker compose up -d --build`) 即可生效。
+### API 測試指南
+您可以透過以下指令進行功能模組驗證：
+
+#### 1. 爬蟲模組 (GET 請求)
+需在 URL 參數中傳入 `url`：
+```bash
+curl -s "http://localhost:5000/api/scraper/scrape?url=https://www.google.com"
+```
+
+#### 2. 分析模組 (POST 請求)
+需在 Request Payload 中傳入 JSON 格式的 `text`：
+```bash
+curl -X POST -H "Content-Type: application/json" \
+     -d '{"text": "這是一段測試文字，用來測試分析功能"}' \
+     "http://localhost:5000/api/analyzer/analyze"
+```
+
 
 
 
