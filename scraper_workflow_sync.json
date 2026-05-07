@@ -1,20 +1,17 @@
 {
-  "name": "Sidecar Scraper Workflow (Synchronous - Updated)",
+  "name": "Sidecar Scraper Workflow (Synchronous - Final)",
   "nodes": [
     {
       "parameters": {
         "httpMethod": "GET",
         "path": "scrape-trigger",
         "options": {
-          "responseMode": "onReceived"
+          "responseMode": "whenLastNodeFinishes"
         }
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
-      "position": [
-        460,
-        300
-      ],
+      "position": [460, 300],
       "id": "webhook-node",
       "name": "Webhook"
     },
@@ -35,10 +32,7 @@
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
-      "position": [
-        680,
-        300
-      ],
+      "position": [680, 300],
       "id": "http-node",
       "name": "Call Python Scraper"
     },
@@ -50,36 +44,13 @@
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [
-        900,
-        300
-      ],
+      "position": [900, 300],
       "id": "respond-node",
       "name": "Respond to Webhook"
     }
   ],
   "connections": {
-    "Webhook": {
-      "main": [
-        [
-          {
-            "node": "Call Python Scraper",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Call Python Scraper": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    }
+    "Webhook": { "main": [ [ { "node": "Call Python Scraper", "type": "main", "index": 0 } ] ] },
+    "Call Python Scraper": { "main": [ [ { "node": "Respond to Webhook", "type": "main", "index": 0 } ] ] }
   }
 }
