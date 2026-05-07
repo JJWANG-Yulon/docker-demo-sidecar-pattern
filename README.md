@@ -38,6 +38,10 @@ docker-demo/
 curl "http://localhost:5679/webhook/scrape-trigger?url=https://dashboard.ngrok.com"
 ```
 
-## 同步工作流調用 (Sync Workflow)
-- 新增 `scraper_workflow_sync.json`，透過設定 Webhook 為同步響應模式 (`onReceived`)，實現請求-回應式呼叫，確保能即時獲得爬蟲最終結果。
+## 功能模組與路由分流
+- 透過 Flask Blueprints 將應用程式模組化 (Sidecar/routes/)，實現路由分流：
+  - `/api/scraper/scrape`: 執行網頁爬蟲任務。
+  - `/api/analyzer/analyze`: 執行文字數據統計任務。
+- 新增 `analyzer_workflow.json` 以支援字數統計工作流的同步呼叫。
+
 

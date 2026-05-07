@@ -1,10 +1,10 @@
 {
-  "name": "Sidecar Scraper Workflow (Synchronous - Updated)",
+  "name": "Sidecar Analyzer Workflow (Synchronous)",
   "nodes": [
     {
       "parameters": {
-        "httpMethod": "GET",
-        "path": "scrape-trigger",
+        "httpMethod": "POST",
+        "path": "analyze-trigger",
         "options": {
           "responseMode": "onReceived"
         }
@@ -15,19 +15,19 @@
         460,
         300
       ],
-      "id": "webhook-node",
+      "id": "webhook-analyzer",
       "name": "Webhook"
     },
     {
       "parameters": {
-        "method": "GET",
-        "url": "http://sidecar:5000/api/scraper/scrape",
-        "sendQuery": true,
-        "queryParameters": {
+        "method": "POST",
+        "url": "http://sidecar:5000/api/analyzer/analyze",
+        "sendBody": true,
+        "bodyParameters": {
           "parameters": [
             {
-              "name": "url",
-              "value": "={{ $json.query.url }}"
+              "name": "text",
+              "value": "={{ $json.body.text }}"
             }
           ]
         },
@@ -39,8 +39,8 @@
         680,
         300
       ],
-      "id": "http-node",
-      "name": "Call Python Scraper"
+      "id": "http-analyzer",
+      "name": "Call Python Analyzer"
     },
     {
       "parameters": {
@@ -54,7 +54,7 @@
         900,
         300
       ],
-      "id": "respond-node",
+      "id": "respond-analyzer",
       "name": "Respond to Webhook"
     }
   ],
@@ -63,14 +63,14 @@
       "main": [
         [
           {
-            "node": "Call Python Scraper",
+            "node": "Call Python Analyzer",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Call Python Scraper": {
+    "Call Python Analyzer": {
       "main": [
         [
           {
