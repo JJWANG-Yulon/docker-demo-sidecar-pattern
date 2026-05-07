@@ -38,5 +38,6 @@ docker-demo/
 curl "http://localhost:5679/webhook/scrape-trigger?url=https://dashboard.ngrok.com"
 ```
 
-## 開發日誌
-- 2026-05-07: 建立初始 Sidecar 架構，並完成 ngrok dashboard 爬取測試。
+## 同步工作流調用 (Sync Workflow)
+- 新增 `scraper_workflow_sync.json`，透過設定 Webhook 為同步響應模式 (`onReceived`)，實現請求-回應式呼叫，確保能即時獲得爬蟲最終結果。
+

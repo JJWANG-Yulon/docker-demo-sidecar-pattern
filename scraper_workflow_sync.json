@@ -1,11 +1,13 @@
 {
-  "name": "Web Scraper Demo",
+  "name": "Sidecar Scraper Workflow (Synchronous)",
   "nodes": [
     {
       "parameters": {
         "httpMethod": "GET",
         "path": "scrape-trigger",
-        "options": {}
+        "options": {
+          "responseMode": "onReceived"
+        }
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
@@ -13,7 +15,7 @@
         460,
         300
       ],
-      "id": "1",
+      "id": "webhook-node",
       "name": "Webhook"
     },
     {
@@ -37,7 +39,7 @@
         680,
         300
       ],
-      "id": "2",
+      "id": "http-node",
       "name": "Call Python Scraper"
     },
     {
@@ -52,7 +54,7 @@
         900,
         300
       ],
-      "id": "3",
+      "id": "respond-node",
       "name": "Respond to Webhook"
     }
   ],
