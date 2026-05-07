@@ -30,13 +30,21 @@ docker-demo/
    - n8n: `http://localhost:5679`
    - Python Sidecar API: `http://localhost:5000`
 
-## 測試爬蟲功能
+## n8n 工作流測試
+若要透過 n8n 調用功能，請確保已在 n8n 中匯入 `scraper_workflow_sync.json` 與 `analyzer_workflow.json` 並啟用。
 
-啟動後，可透過 n8n Webhook 觸發爬蟲任務：
-
+### 1. 測試網頁爬蟲工作流
 ```bash
-curl "http://localhost:5679/webhook/scrape-trigger?url=https://dashboard.ngrok.com"
+curl -s "http://localhost:5679/webhook/scrape-trigger?url=https://dashboard.ngrok.com"
 ```
+
+### 2. 測試字數分析工作流
+```bash
+curl -X POST -H "Content-Type: application/json" \
+     -d '{"text": "Hello world from OpenClaw and n8n"}' \
+     "http://localhost:5679/webhook/analyze-trigger"
+```
+
 
 ## 功能模組與路由分流
 - 透過 Flask Blueprints 將應用程式模組化 (Sidecar/routes/)，實現路由分流：
